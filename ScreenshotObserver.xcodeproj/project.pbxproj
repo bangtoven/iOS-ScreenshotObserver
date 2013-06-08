@@ -10,6 +10,8 @@
 		04508B9B1762D1A600C3533E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04508B9A1762D1A600C3533E /* Foundation.framework */; };
 		04508BA01762D1A600C3533E /* ScreenshotObserver.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 04508B9F1762D1A600C3533E /* ScreenshotObserver.h */; };
 		04508BA21762D1A600C3533E /* ScreenshotObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 04508BA11762D1A600C3533E /* ScreenshotObserver.m */; };
+		04508BA91762D1C500C3533E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04508BA81762D1C500C3533E /* AssetsLibrary.framework */; };
+		04508BAB1762D1E400C3533E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04508BAA1762D1E400C3533E /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +33,9 @@
 		04508B9E1762D1A600C3533E /* ScreenshotObserver-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ScreenshotObserver-Prefix.pch"; sourceTree = "<group>"; };
 		04508B9F1762D1A600C3533E /* ScreenshotObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScreenshotObserver.h; sourceTree = "<group>"; };
 		04508BA11762D1A600C3533E /* ScreenshotObserver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScreenshotObserver.m; sourceTree = "<group>"; };
+		04508BA81762D1C500C3533E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		04508BAA1762D1E400C3533E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		04508BDF1762D59700C3533E /* ScreenshotTester.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ScreenshotTester.xcodeproj; path = ScreenshotObserver/ScreenshotTester/ScreenshotTester.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +43,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04508BAB1762D1E400C3533E /* UIKit.framework in Frameworks */,
+				04508BA91762D1C500C3533E /* AssetsLibrary.framework in Frameworks */,
 				04508B9B1762D1A600C3533E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,6 +55,7 @@
 		04508B8E1762D1A600C3533E = {
 			isa = PBXGroup;
 			children = (
+				04508BDF1762D59700C3533E /* ScreenshotTester.xcodeproj */,
 				04508B9C1762D1A600C3533E /* ScreenshotObserver */,
 				04508B991762D1A600C3533E /* Frameworks */,
 				04508B981762D1A600C3533E /* Products */,
@@ -66,6 +74,8 @@
 			isa = PBXGroup;
 			children = (
 				04508B9A1762D1A600C3533E /* Foundation.framework */,
+				04508BAA1762D1E400C3533E /* UIKit.framework */,
+				04508BA81762D1C500C3533E /* AssetsLibrary.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
