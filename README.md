@@ -1,6 +1,6 @@
 #Screenshot observer
 
-##Screenshot taken listener for android
+##Screenshot taken listener for iOS
 
 
 ###Features
