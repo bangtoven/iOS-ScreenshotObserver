@@ -3,15 +3,22 @@
 //  ScreenshotObserver
 //
 //  Created by Bangtoven on 13. 6. 8..
-//  Copyright (c) 2013년 Bangtoven. All rights reserved.
+//  Copyright (c) 2013 Bangtoven. All rights reserved.
 //
 
 #import "ScreenshotObserver.h"
-#define PRINT_LOG 1
+
+#if DEBUG_LOG
+#define PRINT_LOG(fmt, ...) NSLog(fmt, ##__VA_ARGS__)
+#else
+#define PRINT_LOG(fmt, ...)
+#endif
 
 @interface ScreenshotObserver () {
+    __strong ALAssetsLibrary *library;
+    
     id<ScreenshotTakenDelegate> delegate;
-    //    ScreenshotObserveOrientation orientation;
+    
     CGSize deviceSize;
     CGSize rotatedDeviceSize;
     
@@ -21,6 +28,7 @@
 }
 
 @end
+
 @implementation ScreenshotObserver
 
 - (id)initWithDelegate:(id<ScreenshotTakenDelegate>)_delegate{
@@ -28,13 +36,16 @@
         delegate = _delegate;
         deviceSize = [self determineDeivceSize];
         rotatedDeviceSize = CGSizeMake(deviceSize.height, deviceSize.width);
+        self.observationInterval = 2;
     }
     return self;
 }
 
 - (CGSize)determineDeivceSize {
     CGSize size = [UIScreen mainScreen].bounds.size;
-    if ([UIScreen instancesRespondToSelector:@selector(scale)] && [[UIScreen mainScreen] scale]>1) {
+    if ([UIScreen instancesRespondToSelector:@selector(scale)]
+        && [[UIScreen mainScreen] scale]>1) {
+        // Retina screenshot size support
         size = CGSizeMake(size.width*2, size.height*2);
     }
     return size;
@@ -49,6 +60,8 @@
         return;
     }
     
+    library = [[ALAssetsLibrary alloc] init];
+    
     isWatching = YES;
     latestDate = [NSDate date];
     if (!semaphore)
@@ -57,9 +70,10 @@
         while (isWatching) {
             [self watchForLastestScreenshot];
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-            sleep(2);
+            sleep(self.observationInterval);
         }
         semaphore = NULL;
+        library = nil;
     });
 }
 
@@ -68,7 +82,6 @@
 }
 
 - (void)watchForLastestScreenshot {
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:
      ^(ALAssetsGroup *group, BOOL *stop) {
          [group setAssetsFilter:[ALAssetsFilter allPhotos]];
@@ -97,7 +110,7 @@
               }
               
               if (CGSizeEqualToSize(representation.dimensions, deviceSize)==NO && CGSizeEqualToSize(representation.dimensions, rotatedDeviceSize)==NO) {
-                  NSLog(@"%f %f || %f %f",representation.dimensions.width, representation.dimensions.height, deviceSize.width, deviceSize.height);
+                  PRINT_LOG(@"%f %f || %f %f",representation.dimensions.width, representation.dimensions.height, deviceSize.width, deviceSize.height);
                   [self sendSignalToRepeatWatchingWithLog:@"Wrong size" andLatestDate:date];
                   return;
               }
@@ -107,15 +120,21 @@
               });
               [self sendSignalToRepeatWatchingWithLog:@"Screenshot taken!" andLatestDate:date];
           }];
-     } failureBlock:nil];
+     } failureBlock:^(NSError *error) {
+         if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusDenied) {
+             PRINT_LOG(@"Access denied");
+             [delegate screenshotObservationDenied];
+             [self stopWatching];
+         } else {
+             NSLog(@"Other error code: %i. Report to Github please.",error.code);
+         }
+     }];
 }
 
-- (void)sendSignalToRepeatWatchingWithLog:(NSString*)log andLatestDate:(NSDate*)date{
-#if PRINT_LOG
-    NSLog(@"%@", log);
-#endif
-    if (date)
-        latestDate = date;
+- (void)sendSignalToRepeatWatchingWithLog:(NSString*)log andLatestDate:(NSDate*)time{
+    PRINT_LOG(@"%@", log);
+    if (time)
+        latestDate = time;
     dispatch_semaphore_signal(semaphore);
 }
 

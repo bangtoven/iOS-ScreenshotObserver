@@ -23,7 +23,7 @@
     so = [[ScreenshotObserver alloc] initWithDelegate:self];
 }
 
-- (IBAction)getLatestAction:(UISwitch*)sender{
+- (IBAction)switchChangeAction:(UISwitch*)sender{
     if (sender.isOn) {
         [so startWatching];
     }
@@ -39,7 +39,8 @@
 }
 
 - (void)screenshotObservationDenied {
-    NSLog(@"This happens when user denied access to her/his camera roll.");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"This happens when user denied access to her/his camera roll." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 
 @end

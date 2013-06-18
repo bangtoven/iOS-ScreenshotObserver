@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
+
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-- (IBAction)getLatestAction:(UISwitch*)sender;
+
+- (IBAction)switchChangeAction:(UISwitch*)sender;
 
 @end

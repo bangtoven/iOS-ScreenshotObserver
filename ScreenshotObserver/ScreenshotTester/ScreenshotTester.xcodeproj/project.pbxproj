@@ -41,7 +41,7 @@
 		04508BD81762D59700C3533E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		04508BE71762D74100C3533E /* libScreenshotObserver.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libScreenshotObserver.a; path = "../../../../Library/Developer/Xcode/DerivedData/ScreenshotObserver-cfhzpglejwezzyaqybcyctncffeu/Build/Products/Debug-iphoneos/libScreenshotObserver.a"; sourceTree = "<group>"; };
 		04508BE91762D7EC00C3533E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		04508BEB1762D8A300C3533E /* ScreenshotObserver.h */ = {isa = PBXFileReference; lastKnownFileType = file; name = ScreenshotObserver.h; path = ../ScreenshotObserver.h; sourceTree = "<group>"; };
+		04508BEB1762D8A300C3533E /* ScreenshotObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScreenshotObserver.h; path = ../ScreenshotObserver.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,6 +320,7 @@
 				04508BDE1762D59700C3533E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
